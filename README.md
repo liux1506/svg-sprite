@@ -1,5 +1,5 @@
 # svg-sprite
-
+svg-sprite-java
 将图标（即svg）合并为雪碧图。
 
 ## 引用：
