@@ -31,7 +31,7 @@ svgTranscoder.transcoder(Paths.get("D:\\Document\\\\test"), list, new int[]{1, 2
 
 
 
-![sprite](.\example\sprite\sprite.png)
+![sprite](./example/sprite/sprite.png)
 
 use:
 
