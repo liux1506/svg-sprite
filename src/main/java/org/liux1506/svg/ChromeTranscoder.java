@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.io.FileUtils;
 import org.dom4j.Document;
@@ -31,9 +30,8 @@ public class ChromeTranscoder extends SVGTranscoder{
 	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(SVGTranscoder.class);
 	private static final String TEMP_HTML_PATH = "convert-svg-png.html";
 
-	// todo remove arg containerWH
 	@Override
-	protected void transcoderImage(Document doc, List<SvgInfo> svgInfos, int[] ratios, Path targetPath, int[] containerWH) throws IOException {
+	protected void transcoderImage(Document doc, Path targetPath, int[] containerWH) throws IOException {
 		LOG.info("use chrome screenshot transcoder");
 		Browser browser;
 		Page page;

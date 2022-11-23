@@ -142,7 +142,7 @@ public abstract class SVGTranscoder {
 		String fileName = maxRatio == 1 ? "sprite" : "sprite@" + maxRatio + "x";
 		Path maxDestPath = targetPath.resolve(fileName + ".png");
 		LOG.info("translate to Image");
-		transcoderImage(merge, svgInfos, ratios, maxDestPath, Arrays.stream(containerWH).map(operand -> operand * maxRatio).toArray());
+		transcoderImage(merge, maxDestPath, Arrays.stream(containerWH).map(operand -> operand * maxRatio).toArray());
 		// write json
 		try (OutputStream jsonOs = Files.newOutputStream(targetPath.resolve(fileName + ".json"))){
 			String spriteJson = SvgHandleUtil.iconInfoJson(svgInfos, maxRatio);
@@ -161,5 +161,5 @@ public abstract class SVGTranscoder {
 			}
 		}
 	}
-	protected abstract void transcoderImage(Document merge, List<SvgInfo> svgInfos, int[] ratios, Path targetPath, int[] containerWH) throws IOException;
+	protected abstract void transcoderImage(Document merge, Path targetPath, int[] containerWH) throws IOException;
 }

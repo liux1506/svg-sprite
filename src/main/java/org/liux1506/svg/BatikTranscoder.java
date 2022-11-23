@@ -27,7 +27,7 @@ public class BatikTranscoder extends SVGTranscoder{
 	private static final Logger LOG = LoggerFactory.getLogger(BatikTranscoder.class);
 
 	@Override
-	protected void transcoderImage(Document merge, List<SvgInfo> svgInfos, int[] ratios, Path targetPath, int[] containerWh)
+	protected void transcoderImage(Document merge, Path targetPath, int[] containerWh)
 		throws IOException {
 		LOG.info("use batik svg to png transcoder");
 		byte[] bytes = merge.asXML().getBytes(StandardCharsets.UTF_8);
