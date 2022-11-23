@@ -9,9 +9,9 @@ import com.ruiyun.jvppeteer.options.LaunchOptionsBuilder;
 import com.ruiyun.jvppeteer.options.PageNavigateOptions;
 import com.ruiyun.jvppeteer.options.ScreenshotOptions;
 import com.ruiyun.jvppeteer.options.Viewport;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.io.FileUtils;
@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 public class ChromeTranscoder extends SVGTranscoder{
 
 	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(SVGTranscoder.class);
-	private static final String TEMP_HTML_PATH = "convert-svg-png.html";
+	private static final String TEMP_HTML_NAME = "convert-svg-png.html";
 
 	@Override
 	protected void transcoderImage(Document doc, Path targetPath, int[] containerWH) throws IOException {
@@ -78,9 +78,10 @@ public class ChromeTranscoder extends SVGTranscoder{
 		} else {
 			throw new RuntimeException("SVG element open tag not found in input. Check the SVG input");
 		}
-		File file = new File(TEMP_HTML_PATH);
-		FileUtils.writeStringToFile(file, html, "UTF-8");
-		return file.getAbsolutePath();
+
+		Path path = Paths.get(System.getProperty("java.io.tmpdir"),"tmp-svg-html", TEMP_HTML_NAME);
+		FileUtils.writeStringToFile(path.toFile(), html, "UTF-8");
+		return path.toString();
 	}
 
 	/**
