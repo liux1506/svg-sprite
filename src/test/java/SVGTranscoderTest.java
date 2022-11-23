@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.liux1506.svg.BatikTranscoder;
 import org.liux1506.svg.ChromeTranscoder;
 import org.liux1506.svg.SVGTranscoder;
 
@@ -18,14 +17,13 @@ import org.liux1506.svg.SVGTranscoder;
 public class SVGTranscoderTest {
 
 	public static void main(String[] args) throws IOException {
-		SVGTranscoder svgTranscoder = new BatikTranscoder();
-//		SVGTranscoder svgTranscoder = new ChromeTranscoder();
+		SVGTranscoder svgTranscoder = new ChromeTranscoder();
 
 		List<File> list = Files.list(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图\\svgs\\www"))
 			.filter(path -> path.getFileName().toString().endsWith(".svg"))
 			.map(Path::toFile)
 			.collect(Collectors.toList());
-		svgTranscoder.transcoder(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图"), list, new int[]{1, 2});
+		svgTranscoder.transcoder(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图"), list, new int[]{3});
 	}
 
 /*	public static void main(String[] args) throws IOException {

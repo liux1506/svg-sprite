@@ -2,7 +2,6 @@ package org.liux1506.svg;
 
 import com.ruiyun.jvppeteer.core.Puppeteer;
 import com.ruiyun.jvppeteer.core.browser.Browser;
-import com.ruiyun.jvppeteer.core.browser.BrowserFetcher;
 import com.ruiyun.jvppeteer.core.page.Page;
 import com.ruiyun.jvppeteer.options.Clip;
 import com.ruiyun.jvppeteer.options.LaunchOptions;
@@ -33,7 +32,7 @@ public class ChromeTranscoder extends SVGTranscoder{
 	@Override
 	protected void transcoderImage(Document doc, Path targetPath, int[] containerWH) throws IOException {
 		LOG.info("use chrome screenshot transcoder");
-		Browser browser;
+		Browser browser = null;
 		Page page;
 		try {
 			browser = browser();
@@ -42,23 +41,26 @@ public class ChromeTranscoder extends SVGTranscoder{
 			LOG.info("load html page");
 			page.goTo(path,
 				new PageNavigateOptions(null, 30 * 60000, null));
+			Viewport viewport = new Viewport();
+			viewport.setWidth(containerWH[0]);
+			viewport.setHeight(containerWH[1]);
+			page.setViewport(viewport);
+			ScreenshotOptions options = new ScreenshotOptions();
+			options.setPath(targetPath.toString());
+			options.setClip(new Clip(0,0,containerWH[0],containerWH[1]));
+			options.setOmitBackground(true);
+			LOG.info("screenshot start");
+			page.screenshot(options);
+			LOG.info("close browser");
 		} catch (InterruptedException e) {
 			throw new RuntimeException("page goto interrupted");
 		} catch (ExecutionException e) {
 			throw new RuntimeException(e);
+		} finally {
+			if (browser != null) {
+				browser.close();
+			}
 		}
-		Viewport viewport = new Viewport();
-		viewport.setWidth(containerWH[0]);
-		viewport.setHeight(containerWH[1]);
-		page.setViewport(viewport);
-		ScreenshotOptions options = new ScreenshotOptions();
-		options.setPath(targetPath.toString());
-		options.setClip(new Clip(0,0,containerWH[0],containerWH[1]));
-		options.setOmitBackground(true);
-		LOG.info("screenshot start");
-		page.screenshot(options);
-		LOG.info("close browser");
-		browser.close();
 	}
 
 	private String writeTempFile(Document doc) throws IOException {
@@ -96,17 +98,13 @@ public class ChromeTranscoder extends SVGTranscoder{
 		arrayList.add("--no-first-run");
 		//禁止分叉子进程
 		arrayList.add("--no-zygote");
-		//单进程运行
-		arrayList.add("--single-process");
-		//启用打印模式
-		arrayList.add("--enable-print-browser");
 
 		//禁用沙盒模式
 		arrayList.add("--no-sandbox");
 		// 禁用uid沙盒
 		arrayList.add("--disable-setuid-sandbox");
 		//自动下载，第一次下载后不会再下载
-		BrowserFetcher.downloadIfNotExist(null);
+		BrowserFetcher.downloadIfNotExist("1073354");
 		LaunchOptions options = new LaunchOptionsBuilder().withArgs(arrayList).withHeadless(true).build();
 		options.setIgnoreHTTPSErrors(true);
 		return Puppeteer.launch(options);
