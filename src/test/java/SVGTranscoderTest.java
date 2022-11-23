@@ -1,12 +1,11 @@
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.io.IOUtils;
+import org.liux1506.svg.ChromeTranscoder;
 import org.liux1506.svg.SVGTranscoder;
 
 /**
@@ -17,14 +16,16 @@ import org.liux1506.svg.SVGTranscoder;
  **/
 public class SVGTranscoderTest {
 
-//	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 //		SVGTranscoder svgTranscoder = new SVGTranscoder();
-//		List<File> list = Files.list(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图\\test"))
-//			.filter(path -> path.getFileName().toString().endsWith(".svg"))
-//			.map(Path::toFile)
-//			.collect(Collectors.toList());
-//		svgTranscoder.transcoder(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图\\test\\ww"), list, new int[]{1, 2});
-//	}
+		SVGTranscoder svgTranscoder = new ChromeTranscoder();
+
+		List<File> list = Files.list(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图\\svgs\\www"))
+			.filter(path -> path.getFileName().toString().endsWith(".svg"))
+			.map(Path::toFile)
+			.collect(Collectors.toList());
+		svgTranscoder.transcoder(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图"), list, new int[]{1, 2});
+	}
 
 /*	public static void main(String[] args) throws IOException {
 		SVGTranscoder svgTranscoder = new SVGTranscoder();
@@ -36,13 +37,14 @@ public class SVGTranscoderTest {
 		IOUtils.write(transcoder, Files.newOutputStream(Paths.get("D:\\Document\\图标库\\下载基础公共雪碧图\\test\\ww\\sprite.zip")));
 	}*/
 
-	public static void main(String[] args) throws IOException {
-		SVGTranscoder svgTranscoder = new SVGTranscoder();
+/*	public static void main(String[] args) throws IOException {
+		SVGTranscoder svgTranscoder = new ChromeTranscoder();
+//		SVGTranscoder svgTranscoder = new BatikTranscoder();
 		List<File> list = Files.list(Paths.get("example/icon"))
 			.filter(path -> path.getFileName().toString().endsWith(".svg"))
 			.map(Path::toFile)
 			.collect(Collectors.toList());
 		byte[] transcoder = svgTranscoder.transcoder(list, new int[]{1, 2});
 		IOUtils.write(transcoder, Files.newOutputStream(Paths.get("example/sprite/sprite.zip")));
-	}
+	}*/
 }

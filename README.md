@@ -8,23 +8,21 @@ svg-sprite-java
 
 ## 工作流程
 
-将svg合并成一个整体svg， 并处理样式及引用冲突。然后使用apache的batik将svg转换为png
+将svg合并成一个整体svg， 并处理样式及引用冲突。然后使用chrome或apache的batik将svg转换为png
 
 ![](./example/flow.png)
 
 ## 使用示例
 
 ``` java
-SVGTranscoder svgTranscoder = new SVGTranscoder();
+SVGTranscoder svgTranscoder = new ChromeTranscoder(); // chrome screenshot svg to png
+// SVGTranscoder svgTranscoder = new BatikTranscoder(); // batik svg to png
 List<File> list = Files.list(Paths.get("example/icon"))
     .filter(path -> path.getFileName().toString().endsWith(".svg"))
     .map(Path::toFile)
     .collect(Collectors.toList());
-// byte[] is zip file
-// byte[] transcoder = svgTranscoder.transcoder(list, new int[]{1, 2});
-// IOUtils.write(transcoder, Files.newOutputStream(Paths.get("example/sprite/sprite.zip")));
-// or generate sprite target directory
-svgTranscoder.transcoder(Paths.get("D:\\Document\\\\test"), list, new int[]{1, 2});
+byte[] transcoder = svgTranscoder.transcoder(list, new int[]{1, 2});
+IOUtils.write(transcoder, Files.newOutputStream(Paths.get("example/sprite/sprite.zip")));
 ```
 
 ### 结果示例

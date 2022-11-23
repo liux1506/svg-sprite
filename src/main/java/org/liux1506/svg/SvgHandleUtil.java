@@ -104,7 +104,6 @@ public class SvgHandleUtil {
 
 	public static Document merge(List<SvgInfo> svgs, int containerW, int containerH, int ratio)
 		throws InterruptedException, ExecutionException {
-		LOG.info("merge svgs to one with ratio");
 		Document document = DocumentHelper.createDocument();
 		Element svgTag = document.addElement("svg");
 		svgTag.addNamespace("", "http://www.w3.org/2000/svg");
@@ -136,7 +135,6 @@ public class SvgHandleUtil {
 		} finally {
 			executorService.shutdown();
 		}
-
 		return document;
 	}
 
