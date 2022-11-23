@@ -9,6 +9,7 @@ svg-sprite-java
 ## 工作流程
 
 将svg合并成一个整体svg， 并处理样式及引用冲突。然后使用chrome或apache的batik将svg转换为png
+> 如果条件允许，尽量使用chrome转，数据量大的情况下速度会快很多
 
 ![](./example/flow.png)
 
