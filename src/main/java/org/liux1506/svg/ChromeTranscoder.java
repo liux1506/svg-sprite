@@ -39,7 +39,7 @@ public class ChromeTranscoder extends SVGTranscoder{
 			page = browser.newPage();
 			String path = writeTempFile(doc);
 			LOG.info("load html page");
-			page.goTo(path,
+			page.goTo("file://" + path,
 				new PageNavigateOptions(null, 30 * 60000, null));
 			Viewport viewport = new Viewport();
 			viewport.setWidth(containerWH[0]);
@@ -49,14 +49,15 @@ public class ChromeTranscoder extends SVGTranscoder{
 			options.setPath(targetPath.toString());
 			options.setClip(new Clip(0,0,containerWH[0],containerWH[1]));
 			options.setOmitBackground(true);
+			options.setType("png");
 			LOG.info("screenshot start");
 			page.screenshot(options);
-			LOG.info("close browser");
 		} catch (InterruptedException e) {
 			throw new RuntimeException("page goto interrupted");
 		} catch (ExecutionException e) {
 			throw new RuntimeException(e);
 		} finally {
+			LOG.info("close browser");
 			if (browser != null) {
 				browser.close();
 			}
