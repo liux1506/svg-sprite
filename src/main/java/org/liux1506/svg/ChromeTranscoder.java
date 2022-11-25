@@ -100,7 +100,7 @@ public class ChromeTranscoder extends SVGTranscoder{
 		arrayList.add("--no-first-run");
 		//禁止分叉子进程
 		arrayList.add("--no-zygote");
-
+		arrayList.add("--disable-features=site-per-process");
 		//禁用沙盒模式
 		arrayList.add("--no-sandbox");
 		// 禁用uid沙盒
