@@ -110,7 +110,7 @@ public abstract class SVGTranscoder {
 				(int) Math.ceil(svgFiles.size() / (double) threadNum));
 
 			List<Callable<List<SvgInfo>>> callables = partition.stream().map(files -> {
-				Callable<List<SvgInfo>> callable = () -> SvgHandleUtil.extractSvgAttr(files);;
+				Callable<List<SvgInfo>> callable = () -> SvgHandleUtil.extractSvgAttr(files);
 				return callable;
 			}).collect(Collectors.toList());
 

@@ -92,15 +92,8 @@ public class ChromeTranscoder extends SVGTranscoder{
 	 */
 	private Browser browser() throws IOException, InterruptedException, ExecutionException {
 		ArrayList<String> arrayList = new ArrayList<>();
-		// GPU硬件加速
-		arrayList.add("--disable-gpu");
-		// 创建临时文件共享内存
-		arrayList.add("--disable-dev-shm-usage");
 		// 没有设置首页。在启动的时候，就会打开一个空白页面。
 		arrayList.add("--no-first-run");
-		//禁止分叉子进程
-		arrayList.add("--no-zygote");
-		arrayList.add("--disable-features=site-per-process");
 		//禁用沙盒模式
 		arrayList.add("--no-sandbox");
 		// 禁用uid沙盒
